@@ -18,15 +18,20 @@ services:
   #     - db-password
   db:
     image: postgres
+    container_name: POSTGRES_DB
     restart: always
     user: postgres
     secrets:
       - db-password
     volumes:
       - db-data:/var/lib/postgresql/data
+    # environment:
+    #   - POSTGRES_PASSWORD=password
+    #   - POSTGRES_USER=root
+    #   - POSTGRES_DB=eshop
     environment:
       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-      - POSTGRES_USER=root
+      - POSTGRES_USER=postgres
       - POSTGRES_DB=eshop
     expose:
       - 5432
