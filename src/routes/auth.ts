@@ -1,10 +1,30 @@
 import { Router } from "express";
 import { signup, login } from "../controllers/auth";
 
-const authRoutes: Router = Router()
+const authRouter: Router = Router()
+/**
+ * @swagger
+ * /signup:
+ *   signup:
+ *     summary: User signup
+ *     description: Users app account creation
+ *     responses:
+ *       201:
+ *         description: Account created successfully
+ */
+authRouter.post('/signup', signup);
 
-authRoutes.post('/signup', signup);
 
-authRoutes.post('/login', login)
+/**
+ * @swagger
+ * /login:
+ *   login:
+ *     summary: User Login
+ *     description: Users app account login
+ *     responses:
+ *       200:
+ *         description: Login successful
+ */
+authRouter.post('/login', login)
 
-export default authRoutes
+export default authRouter
