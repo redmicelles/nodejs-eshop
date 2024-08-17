@@ -129,6 +129,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-#Misc
-notes.md
-**/password.txt
+/db/password.txt
