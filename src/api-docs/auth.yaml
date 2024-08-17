@@ -27,6 +27,8 @@ paths:
           description: Authentication failed
         404:
           description: Not found
+        422:
+          description: Unprocessable Entity
         500:
           description: Server Error
 

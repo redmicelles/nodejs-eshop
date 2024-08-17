@@ -1,19 +1,11 @@
 import { Router } from "express";
 import { signup, login } from "../controllers/auth";
+import { errorHandler } from "../error-handler";
 
 const authRouter: Router = Router()
-/**
- * @swagger
- * /signup:
- *   signup:
- *     summary: User signup
- *     description: Users app account creation
- *     responses:
- *       201:
- *         description: Account created successfully
- */
-authRouter.post('/signup', signup);
 
-authRouter.post('/login', login)
+authRouter.post('/signup', errorHandler(signup));
+
+authRouter.post('/login', errorHandler(login))
 
 export default authRouter
