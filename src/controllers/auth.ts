@@ -25,7 +25,7 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
                 password: hashSync(password, 10)
             }
         });
-        res.json(user);
+        res.status(201).json(user);
     } catch(err: any) {
         next(new UnprocessableEntity("Validation Error", ErrorCodes.UNPROCESSABLE_ENTITY, err?.issues))
     }

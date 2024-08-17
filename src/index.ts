@@ -1,20 +1,31 @@
-import express, {Express, NextFunction, Request, Response} from 'express'
-import { PORT } from './secrets'
-import authRouter from './routes/auth'
-import { PrismaClient } from '@prisma/client'
-import { errorMiddleware } from './middlewares/errors'
-import { SignUpSchema } from './schemas/users'
+import express, { Express, NextFunction, Request, Response } from 'express';
+import cors, { CorsOptions } from 'cors';
 import swaggerUi from 'swagger-ui-express';
-import swaggerSpecs from '../swagger'
+import { PrismaClient } from '@prisma/client';
+import { PORT } from './secrets';
+import rootRouter from './routes';
+import { errorMiddleware } from './middlewares/errors';
+import swaggerConst from './openapi';
 
 const app: Express = express()
 
-app.use(express.json())
+const corsOptions: CorsOptions = {
+    origin: '*',
+};
+app.use(cors(corsOptions));
 
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+app.use(express.json())
+app.use(express.static(__dirname))
+app.use('/api-doc/swagger.css', (_req:Request, res: Response, next:NextFunction) => {
+    res.set('Content-Type', 'text/css');
+    next();
+});
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerConst.swaggerSpec, swaggerConst.swaggerOptions));
+
+app.disable('x-powered-by');
 
 /**
- * @swagger
+ * @openapi
  * /:
  *   get:
  *     summary: Health Check
@@ -27,7 +38,7 @@ app.get('/', (_req: Request, res: Response) => {
     res.status(200).json('Server is alive!')
 })
 
-app.use('/api/auth', authRouter)
+app.use('/api', rootRouter)
 
 export const prismaClient = new PrismaClient({
     log: ['query']

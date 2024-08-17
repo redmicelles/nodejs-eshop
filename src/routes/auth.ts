@@ -14,17 +14,6 @@ const authRouter: Router = Router()
  */
 authRouter.post('/signup', signup);
 
-
-/**
- * @swagger
- * /login:
- *   login:
- *     summary: User Login
- *     description: Users app account login
- *     responses:
- *       200:
- *         description: Login successful
- */
 authRouter.post('/login', login)
 
 export default authRouter

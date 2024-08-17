@@ -22,11 +22,21 @@ const options = {
             }
         ]
     },
-    // looks for configuration in specified directories
-    apis: ['src/index.ts',
-        'src/routes/auth.ts']
+    apis: ['src/index.ts', './src/api-docs/**/*.yaml']
 }
 
 const swaggerSpec = swaggerJSDoc(options);
 
-export default swaggerSpec
+const swaggerOptions = {
+    explorer: true,
+    customCssUrl: '/api-docs/openapi.css',
+    swaggerOptions: {
+      validatorUrl: null
+    }
+  }
+
+const swaggerConst = {
+    'swaggerSpec': swaggerSpec,
+    'swaggerOptions': swaggerOptions
+}
+export default swaggerConst
