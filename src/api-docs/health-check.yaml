@@ -1,0 +1,15 @@
+paths:
+  /:
+    get:
+      tags:
+      - Health Check
+      summary: Health check
+      description: Health Check Endpoint
+      responses:
+        200:
+          description: Ok
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Server is alive

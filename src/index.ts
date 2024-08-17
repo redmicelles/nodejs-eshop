@@ -24,16 +24,6 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerConst.swaggerSpec, 
 
 app.disable('x-powered-by');
 
-/**
- * @openapi
- * /:
- *   get:
- *     summary: Health Check
- *     description: Health Check Endpoint
- *     responses:
- *       200:
- *         description: Server is alive
- */
 app.get('/', (_req: Request, res: Response) => {
     res.status(200).json('Server is alive!')
 })
